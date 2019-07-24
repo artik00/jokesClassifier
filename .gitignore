@@ -1,1 +1,3 @@
-datasets/
+datasets/*
+jokes100.txt
+Jokes16000.txt
