@@ -1,0 +1,12 @@
+Notes:
+
+
+25/7/19
+
+- currently in the prsing data phase each word that include any punction mark such as . ! etc will be break into words
+and the positional mark will be removed , this is for the following cases
+
+    - amir..artyom - will be considered as one word
+    - "exampel!" will consider different then "example" -  might harm the train
+
+-

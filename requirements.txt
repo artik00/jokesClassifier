@@ -1,1 +1,3 @@
 nltk==3.4.3
+gitPython==2.1.12
+gensim==3.8.0
