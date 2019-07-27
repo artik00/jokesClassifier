@@ -6,7 +6,7 @@ import gensim
 from data_loader_from_git import DataLoader
 from ambiguity_vectorizer import AmbiguityVectorizer
 from data_loader_from_file import DataLoaderFromFile
-from IncogurityVectorizer import IncogurityVectorizer
+from incogurity_vectorizer import IncogurityVectorizer
 
 word2vec_pretrained = '/Users/amirl/Downloads/GoogleNews-vectors-negative300.bin'
 SHORT_RUN = True
