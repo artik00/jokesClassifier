@@ -1,4 +1,3 @@
-# TODO currently not in use - need to remove
 import collections
 import os
 
