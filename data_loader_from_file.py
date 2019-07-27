@@ -38,10 +38,6 @@ class DataLoaderFromFile:
             sentance_counter = collections.Counter(sentence)
             self.all_sentences_no_repetition.append([key for key in sentance_counter.keys()])
 
-
-
-
-
     def syntax_fixer(self, word):
         """
         The function checks for irrelevant punctuation and split/ remove etc
