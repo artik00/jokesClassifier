@@ -33,7 +33,7 @@ class DataLoaderFromFile:
 
     def syntax_fixer(self, word):
         """
-        The function check for irrelevant punctuation and split/ remove etc
+        The function checks for irrelevant punctuation and split/ remove etc
 
         :param word: given word
         :return: if problematic punctuation in word handle , else return original value

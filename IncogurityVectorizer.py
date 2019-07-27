@@ -10,8 +10,8 @@ class IncogurityVectorizer:
         self.similarity_func = similarity_func
         self.sentences = sentences
         self.vector = []
-        for sent in sentences:
-            pairs = self.generate_words_couple_for_sentance(sent)
+        for sentence in sentences:
+            pairs = self.generate_words_couple_for_sentance(sentence)
             similarity_scores = []
 
             for pair in pairs:
@@ -22,7 +22,7 @@ class IncogurityVectorizer:
                     print(f"IncogurityVectorizer - word wasnt found {str(e)}, adding 0 as similarity score for {pair}")
                     similarity_scores.append(0)
             max_similarity = max(similarity_scores)
-            min_similarity = max(similarity_scores)
+            min_similarity = min(similarity_scores)
             self.vector.append(Incogurity(similarity=max_similarity, diff=min_similarity))
 
         self.vector = numpy.vstack(self.vector)
