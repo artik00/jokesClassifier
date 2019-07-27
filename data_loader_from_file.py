@@ -1,6 +1,10 @@
+# TODO currently not in use - need to remove
+
 import os
 
 class DataLoaderFromFile:
+
+    problematic_punctuations = [".", "!", ",", "-"]
 
     def __init__(self, filename):
         self.filename = filename
@@ -22,5 +26,56 @@ class DataLoaderFromFile:
             words = sentence.split()
             new_sentence = []
             for word in words:
-                new_sentence.append(word)
+                # for comma w/o spaces
+                fixed_word = self.syntax_fixer(word)
+                new_sentence += fixed_word
             self.all_sentences_splitted_by_word.append(new_sentence)
+
+    def syntax_fixer(self, word):
+        """
+        The function checks for irrelevant punctuation and split/ remove etc
+
+        :param word: given word
+        :return: if problematic punctuation in word handle , else return original value
+        """
+        words_after_split = []
+
+        if self.is_any_punc_in_word(word):
+            stack = [word]
+            candidate = stack.pop(0)
+            while candidate:
+                if self.is_any_punc_in_word(word):
+                    break_after_first_split = False
+
+                    for punc in self.problematic_punctuations:
+                        if not break_after_first_split and punc in candidate:
+                            break_after_first_split = True
+                            # the list comp is to remove empty elements in the spited sentence for example in "..."
+                            for split_part in [part for part in candidate.split(punc) if part]:
+                                if not self.is_any_punc_in_word(split_part):
+                                    words_after_split.append(split_part)
+                                else:
+                                    stack.append(split_part)
+                else:
+                    words_after_split.append(candidate)
+
+                if stack:
+                    candidate = stack.pop(0)
+                else:
+                    candidate = False
+            return words_after_split
+        else:
+            return [word]
+
+    def is_any_punc_in_word(self, word):
+        """
+        check if punctuation in word
+        :param word: given word
+        :return: if yes true else false
+        """
+        for punc in self.problematic_punctuations:
+            if punc in word:
+                return True
+        return False
+
+
