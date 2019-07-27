@@ -20,6 +20,6 @@ if __name__ == "__main__":
         dataloader.all_sentences_splitted_by_word = dataloader.all_sentences_splitted_by_word[:100]
     jokes_splitted_by_word = dataloader.get_all_sentences_splitted_by_word()
     ambiguityVectorizerFeatures = AmbiguityVectorizer(jokes_splitted_by_word)
-    incogurityVector = IncogurityVectorizer(jokes_splitted_by_word, model.similarity).vector
+    incogurityVector = IncogurityVectorizer(dataloader.all_sentences_no_repetition, model.similarity).vector
     pass
 
