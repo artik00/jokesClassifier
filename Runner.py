@@ -3,7 +3,7 @@ import os
 from DataLoader import DataLoader
 from AmbiguityVectorizer import AmbiguityVectorizer
 from DataLoaderFromFile import DataLoaderFromFile
-from InterpersonalVectorizer import InterpersonalVectorizer
+from interpersonal_vectorizer import InterpersonalVectorizer
 
 if __name__ == "__main__":
     jokes_file = 'dataset/jokes100.txt'

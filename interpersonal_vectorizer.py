@@ -1,6 +1,8 @@
 from utils.wilson_lexicon_utils import load_wilson_lexicon
-class InterpersonalVectorizer:
 
+class InterpersonalVectorizer:
+    """This class looks for subjectivity difference between all words
+    """
     def __init__(self, sentences):
         strong_subjectivity_words_set = set()
         weak_subjectivity_words_set = set()
