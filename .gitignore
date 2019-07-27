@@ -1,3 +1,5 @@
-datasets/*
-jokes100.txt
-Jokes16000.txt
+dataset/
+wordnet/
+dataset/jokes100.txt
+dataset/Jokes16000.txt
+.idea/
