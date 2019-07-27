@@ -1,8 +1,8 @@
 import pickle
 import os
-from DataLoader import DataLoader
-from AmbiguityVectorizer import AmbiguityVectorizer
-from DataLoaderFromFile import DataLoaderFromFile
+from data_loader_from_git import DataLoader
+from ambiguity_vectorizer import AmbiguityVectorizer
+from data_loader_from_file import DataLoaderFromFile
 
 if __name__ == "__main__":
     jokes_file = 'dataset/jokes100.txt'
