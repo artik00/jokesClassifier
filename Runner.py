@@ -3,9 +3,9 @@ import os
 
 import gensim
 
-from DataLoader import DataLoader
-from AmbiguityVectorizer import AmbiguityVectorizer
-from DataLoaderFromFile import DataLoaderFromFile
+from data_loader_from_git import DataLoader
+from ambiguity_vectorizer import AmbiguityVectorizer
+from data_loader_from_file import DataLoaderFromFile
 from IncogurityVectorizer import IncogurityVectorizer
 
 word2vec_pretrained = '/Users/amirl/Downloads/GoogleNews-vectors-negative300.bin'
@@ -19,7 +19,7 @@ if __name__ == "__main__":
         dataloader.all_sentences = dataloader.all_sentences[:100]
         dataloader.all_sentences_splitted_by_word = dataloader.all_sentences_splitted_by_word[:100]
     jokes_splitted_by_word = dataloader.get_all_sentences_splitted_by_word()
-    ambiguityVectorizer = AmbiguityVectorizer(jokes_splitted_by_word)
+    ambiguityVectorizerFeatures = AmbiguityVectorizer(jokes_splitted_by_word)
     incogurityVector = IncogurityVectorizer(jokes_splitted_by_word, model.similarity).vector
     pass
 

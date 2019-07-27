@@ -1,5 +1,5 @@
-from AmbiguityVectorizer import get_post_tags_from_nltk
-from utils.wordnet_utils import get_similar_words_from_wordnet
+from ambiguity_vectorizer import get_post_tags_from_nltk
+from utils.wordnet_utils import get_similar_words_from_wordnet, get_wn_tag_from_nltk_tag
 
 class TestAmbiguityVectorizer:
 
@@ -13,5 +13,5 @@ class TestAmbiguityVectorizer:
 
 
     def test_similarity_path(self):
-        similar_words = get_similar_words_from_wordnet('world', 'NN')
+        similar_words = get_similar_words_from_wordnet('world', get_wn_tag_from_nltk_tag('N'))
         print(similar_words)

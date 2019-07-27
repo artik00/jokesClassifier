@@ -1,4 +1,4 @@
-from DataLoader import DataLoader
+from data_loader_from_git import DataLoader
 import os
 
 class TestDataLoader:
