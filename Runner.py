@@ -1,14 +1,23 @@
 import pickle
 import os
-from DataLoader import DataLoader
-from AmbiguityVectorizer import AmbiguityVectorizer
-from DataLoaderFromFile import DataLoaderFromFile
+from ambiguity_vectorizer import AmbiguityVectorizer
+from data_loader_from_file import DataLoaderFromFile
 from interpersonal_vectorizer import InterpersonalVectorizer
+
+word2vec_pretrained = 'word2vec/GoogleNews-vectors-negative300.bin'
+SHORT_RUN = True
+
 
 if __name__ == "__main__":
     jokes_file = 'dataset/jokes100.txt'
     dataloader = DataLoaderFromFile(jokes_file)
-    jokes_splitted_by_word = dataloader.get_all_sentences_splitted_by_word()
+    if SHORT_RUN:
+        dataloader.all_sentences = dataloader.all_sentences[:100]
+        dataloader.all_sentences_splitted_by_word = dataloader.all_sentences_splitted_by_word[:100]
+        jokes_splitted_by_word = dataloader.get_all_sentences_splitted_by_word()
     #ambiguityVectorizer = AmbiguityVectorizer(jokes_splitted_by_word)
-    interpersonal_vectorizer = InterpersonalVectorizer(jokes_splitted_by_word)
+    interpersonal_vectorizer = InterpersonalVectorizer()
+    interpersonal_features = interpersonal_vectorizer.get_feature_vector(sentences=jokes_splitted_by_word)
+
+    pass
 

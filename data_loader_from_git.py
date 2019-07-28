@@ -3,7 +3,9 @@ import git
 
 
 class DataLoader:
-
+    """
+    This class loads data from git , git clone :
+    """
     def __init__(self, url, directory_to_clone_to, file_to_extract = None):
         self.url_to_clone = url
         self.dir = directory_to_clone_to
