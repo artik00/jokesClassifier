@@ -48,11 +48,6 @@ jobs:
       - run:
           name: run tests
           command: |
-            mkdir WilsonLexicon
-            cd WilsonLexicon
-            wget http://www.cs.uic.edu/~liub/FBS/opinion-lexicon-English.rar
-            unrar opinion-lexicon-English.rar
-            cd ..
             . venv/bin/activate
             python -m pytest tests/
 
