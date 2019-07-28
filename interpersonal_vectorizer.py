@@ -4,12 +4,13 @@ import numpy as np
 class InterpersonalVectorizer:
     """This class looks for subjectivity difference between all words
     """
-    def __init__(self):
+    def __init__(self, wilson_lexicon_location=None):
         self.strong_subjectivity_words_set, self.weak_subjectivity_words_set  = set(), set()
         self.negative_polarity_words_set, self.positive_polarity_words_set = set(), set()
 
         self.strong_subjectivity_words_set, self.weak_subjectivity_words_set, self.negative_polarity_words_set, \
-        self.positive_polarity_words_set = load_wilson_lexicon()
+        self.positive_polarity_words_set = load_wilson_lexicon(wilson_lexicon_location) if wilson_lexicon_location else\
+                                            load_wilson_lexicon()
 
     def get_feature_vector(self, sentences):
         strong_subjectivity_counter, weak_subjectivity_counter = 0, 0

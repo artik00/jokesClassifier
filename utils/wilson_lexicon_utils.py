@@ -3,13 +3,13 @@ WILSON_LEXICON = 'WilsonLexicon/subjclueslen1-HLTEMNLP05.tff'
 
 
 
-def load_wilson_lexicon():
+def load_wilson_lexicon(lexicon_location=WILSON_LEXICON):
     strong_subjectivity_words_set = set()
     weak_subjectivity_words_set = set()
     negative_polarity_words_set = set()
     positive_polarity_words_set = set()
     line_key_to_value_dict = {}
-    with open(WILSON_LEXICON, 'r') as file:
+    with open(lexicon_location, 'r') as file:
         for line in file:
             # each line is of the form "type=strongsubj len=1 word1=abuse pos1=verb stemmed1=y priorpolarity=negative"
             splitted_line = line.split()
