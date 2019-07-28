@@ -33,6 +33,7 @@ jobs:
             python3 -m venv venv
             . venv/bin/activate
             pip install -r requirements.txt
+            python -c "import nltk; nltk.download('averaged_perceptron_tagger'); nltk.download('wordnet');"
 
       - save_cache:
           paths:
@@ -48,6 +49,7 @@ jobs:
           name: run tests
           command: |
             . venv/bin/activate
+            python
             python -m pytest tests/
 
       - store_artifacts:
