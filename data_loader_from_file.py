@@ -1,5 +1,5 @@
 # TODO currently not in use - need to remove
-
+import collections
 import os
 
 class DataLoaderFromFile:
@@ -10,10 +10,12 @@ class DataLoaderFromFile:
         self.filename = filename
         self.all_sentences = []
         self.all_sentences_splitted_by_word = []
+        self.all_sentences_no_repetition = []
         with open(filename, 'rb') as file:
             for line in file:
                 self.all_sentences.append(line.decode(errors='ignore').strip())
         self.break_each_sentence_into_tokens()
+        self.remove_repetition()
 
     def get_all_sentences(self):
         return self.all_sentences
@@ -30,6 +32,11 @@ class DataLoaderFromFile:
                 fixed_word = self.syntax_fixer(word)
                 new_sentence += fixed_word
             self.all_sentences_splitted_by_word.append(new_sentence)
+
+    def remove_repetition(self):
+        for sentence in self.all_sentences_splitted_by_word:
+            sentance_counter = collections.Counter(sentence)
+            self.all_sentences_no_repetition.append([key for key in sentance_counter.keys()])
 
     def syntax_fixer(self, word):
         """
