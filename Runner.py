@@ -14,10 +14,11 @@ if __name__ == "__main__":
     if SHORT_RUN:
         dataloader.all_sentences = dataloader.all_sentences[:100]
         dataloader.all_sentences_splitted_by_word = dataloader.all_sentences_splitted_by_word[:100]
-        jokes_splitted_by_word = dataloader.get_all_sentences_splitted_by_word()
+    jokes_splitted_by_word = dataloader.get_all_sentences_splitted_by_word()
     #ambiguityVectorizer = AmbiguityVectorizer(jokes_splitted_by_word)
     interpersonal_vectorizer = InterpersonalVectorizer()
     interpersonal_features = interpersonal_vectorizer.get_feature_vector(sentences=jokes_splitted_by_word)
-
+    jokes_splitted_by_word = dataloader.get_all_sentences_splitted_by_word()
+    incogurityVector = IncogurityVectorizer(dataloader.all_sentences_no_repetition, model.similarity).vector
     pass
 
