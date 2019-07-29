@@ -12,8 +12,11 @@ class AmbiguityVectorizer:
 
     """
     def __init__(self, sentences):
-        pos_tagged_documents = get_post_tags_from_nltk(sentences)
-        create_sense_for_each_sentence(pos_tagged_documents)
+        self.pos_tagged_documents = get_post_tags_from_nltk(sentences)
+
+    def get_features_vector(self):
+        return create_sense_for_each_sentence(pos_tagged_documents)
+
 
 
 #We want to get the POS tag for sentence  the expected input is list of list of str
