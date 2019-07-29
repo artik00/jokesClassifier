@@ -3,13 +3,17 @@ import os
 from ambiguity_vectorizer import AmbiguityVectorizer
 from data_loader_from_file import DataLoaderFromFile
 from interpersonal_vectorizer import InterpersonalVectorizer
+from incogurity_vectorizer import IncogurityVectorizer
+import gensim
 
 word2vec_pretrained = 'word2vec/GoogleNews-vectors-negative300.bin'
 SHORT_RUN = True
 
 
 if __name__ == "__main__":
-    jokes_file = 'dataset/jokes100.txt'
+    jokes_file = 'dataset/Jokes16000.txt'
+    model = gensim.models.KeyedVectors.load_word2vec_format(word2vec_pretrained,
+                                                            binary=True, limit=50000)
     dataloader = DataLoaderFromFile(jokes_file)
     if SHORT_RUN:
         dataloader.all_sentences = dataloader.all_sentences[:100]
