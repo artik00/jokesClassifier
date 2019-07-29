@@ -1,4 +1,3 @@
-# TODO currently not in use - need to remove
 import collections
 import os
 
@@ -37,6 +36,7 @@ class DataLoaderFromFile:
         for sentence in self.all_sentences_splitted_by_word:
             sentance_counter = collections.Counter(sentence)
             self.all_sentences_no_repetition.append([key for key in sentance_counter.keys()])
+
 
     def syntax_fixer(self, word):
         """
