@@ -20,9 +20,9 @@ if __name__ == "__main__":
     if SHORT_RUN:
         dataloader.all_sentences = dataloader.all_sentences[:100]
         dataloader.all_sentences_splitted_by_word = dataloader.all_sentences_splitted_by_word[:100]
-    PhoneticStyle = PhoneticStyle(dataloader.all_sentences).vector
+    phonetic_vector = PhoneticStyle(dataloader.all_sentences).vector
     jokes_splitted_by_word = dataloader.get_all_sentences_splitted_by_word()
     ambiguityVectorizerFeatures = AmbiguityVectorizer(jokes_splitted_by_word)
-    incogurityVector = IncogurityVectorizer(dataloader.all_sentences_no_repetition, model.similarity).vector
+    incogurity_vector = IncogurityVectorizer(dataloader.all_sentences_no_repetition, model.similarity).vector
     pass
 
