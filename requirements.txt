@@ -3,3 +3,4 @@ gitPython==2.1.12
 gensim==3.8.0
 cmudict=0.4.2
 numpy==1.17.0
+pytest==5.0.1
