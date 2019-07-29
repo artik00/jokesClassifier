@@ -2,8 +2,6 @@ from itertools import combinations
 import numpy
 
 
-# a = model.similarityilarity('in', 'for')
-
 class IncogurityVectorizer:
 
     def __init__(self, sentences, similarity_func):
@@ -21,8 +19,8 @@ class IncogurityVectorizer:
                 except KeyError as e:
                     print(f"IncogurityVectorizer - word wasnt found {str(e)}, adding 0 as similarity score for {pair}")
                     similarity_scores.append(0)
-            max_similarity = max(similarity_scores)
-            min_similarity = min(similarity_scores)
+            max_similarity = 0 if not similarity_scores else max(similarity_scores)
+            min_similarity = 0 if not similarity_scores else min(similarity_scores)
             self.vector.append(Incogurity(similarity=max_similarity, diff=min_similarity))
 
         self.vector = numpy.vstack(self.vector)

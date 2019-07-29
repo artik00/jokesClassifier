@@ -1,6 +1,5 @@
 dataset/
 wordnet/
-dataset/jokes100.txt
 dataset/Jokes16000.txt
 .idea/
 word2vec/
