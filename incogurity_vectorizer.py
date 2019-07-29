@@ -27,11 +27,6 @@ class IncogurityVectorizer:
 
         self.vector = numpy.vstack(self.vector)
 
-
-
-
-
-
     def generate_words_couple_for_sentance(self, sentence):
         return list(combinations(sentence, 2))
 
