@@ -10,15 +10,18 @@ class DataLoaderFromFile:
         self._all_sentences = []
         self._all_sentences_splitted_by_word = []
         self._all_sentences_no_repetition = []
-        self.max_number = math.inf if not max_number_of_sentences else max_number_of_sentences
+        self._max_number = math.inf if not max_number_of_sentences else max_number_of_sentences
         with open(filename, 'rb') as file:
             counter = 0
             for line in file:
-                if counter < self.max_number:
+                if counter < self._max_number:
                     self._all_sentences.append(line.decode(errors='ignore').strip())
                     counter += 1
         self.break_each_sentence_into_tokens()
         self.remove_repetition()
+
+    def get_number_of_sentences(self):
+        return self._max_number
 
     def get_all_sentences(self):
         return self._all_sentences
