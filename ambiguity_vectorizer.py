@@ -15,7 +15,7 @@ class AmbiguityVectorizer:
         self.pos_tagged_documents = get_post_tags_from_nltk(sentences)
 
     def get_features_vector(self):
-        return create_sense_for_each_sentence(pos_tagged_documents)
+        return create_sense_for_each_sentence(self.pos_tagged_documents)
 
 
 
