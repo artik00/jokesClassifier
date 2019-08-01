@@ -3,3 +3,6 @@ wordnet/
 dataset/Jokes16000.txt
 .idea/
 word2vec/
+venv/
+python3.7.4/
+
