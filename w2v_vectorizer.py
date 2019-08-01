@@ -13,7 +13,7 @@ class W2vVectorizer:
         self.model = model
         self.sentences = sentences
         
-    def vectorizer(self):
+    def get_features(self):
         feature_w2v = []
         for sentence in self.sentences:
             sum_vector = np.zeros(self.model.vector_size)
