@@ -11,16 +11,19 @@ class PhoneticStyle:
     def __init__(self, sentences):
 
         self.vector = None
+        self.sentences = sentences
+
+    def get_features_vector(self):
         cmu_in_py_dict = cmudict.dict()
         phonetic_vectors = []
-        for sentence in sentences:
+        for sentence in self.sentences:
             phonetic_vectorizer = VectorizeByPhonetic(sentence=sentence, cmu_dict=cmu_in_py_dict)
             phonetic_vectorizer.vectorize()
             phonetic_vectors.append((phonetic_vectorizer.alliteration_num, phonetic_vectorizer.max_alliteration_len,
                                      phonetic_vectorizer.rhyme_num, phonetic_vectorizer.max_rhyme_len))
 
         self.vector = np.vstack(phonetic_vectors)
-
+        return self.vector
 
 class VectorizeByPhonetic:
 

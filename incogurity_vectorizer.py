@@ -8,7 +8,9 @@ class IncogurityVectorizer:
         self.similarity_func = similarity_func
         self.sentences = sentences
         self.vector = []
-        for sentence in sentences:
+
+    def get_features_vector(self):
+        for sentence in self.sentences:
             pairs = self.generate_words_couple_for_sentance(sentence)
             similarity_scores = []
 
@@ -24,6 +26,7 @@ class IncogurityVectorizer:
             self.vector.append((max_similarity, min_similarity))
 
         self.vector = numpy.vstack(self.vector)
+        return self.vector
 
     def generate_words_couple_for_sentance(self, sentence):
         return list(combinations(sentence, 2))
