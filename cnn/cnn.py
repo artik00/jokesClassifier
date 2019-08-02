@@ -38,6 +38,7 @@ class CNN:
         num_filters = 512
         filter_sizes = [3, 4, 5]
 
+
         # dropout probability
 
         drop = 0.5
