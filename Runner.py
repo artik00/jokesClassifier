@@ -9,7 +9,6 @@ if __name__ == "__main__":
     non_jokes_file = 'dataset/MIX16000.txt'
     model = gensim.models.KeyedVectors.load_word2vec_format(word2vec_pretrained,
                                                             binary=True, limit=50000)
-
     NUMBER_OF_SENTENCES = 20
     jokes_total_data_instnce = LearningPipe(data_path=jokes_file,  w2v_model=model,
                                             max_number_of_sentences=NUMBER_OF_SENTENCES)
