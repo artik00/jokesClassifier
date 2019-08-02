@@ -39,6 +39,7 @@ class CNN:
         filter_sizes = [3, 4, 5]
 
         # dropout probability
+
         drop = 0.5
         batch_size = 100
         epochs = 20
