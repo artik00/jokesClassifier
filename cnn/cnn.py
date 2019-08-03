@@ -26,58 +26,51 @@ class CNN:
 
         x_train = data[:-nb_validation_samples]
         y_train = labels[:-nb_validation_samples]
-        x_val = data[-nb_validation_samples:]
-        y_val = labels[-nb_validation_samples:]
-        seq_len = data.shape[0]
-        #inputs = InputLayer(input_shape=(data.shape[1], 1), dtype='float32')
-        # embedding = embedding_layer(inputs)
+        x_test = data[-nb_validation_samples:]
+        y_test = labels[-nb_validation_samples:]
 
-        # print(embedding.shape)
-        # reshape = Reshape((seq_len,EMBEDDING_DIM,1))(embedding)
-        # print(reshape.shape)
-        num_filters = 512
-        filter_sizes = [3, 4, 5]
-
-
-        # dropout probability
-
-        drop = 0.5
-        batch_size = 100
-        epochs = 20
+        batch_size = 10
+        epochs = 800
         input_vec = Input(shape=(data.shape[1],))
         dense_0 = Dense(20, activation='relu')(input_vec)
         dense_1 = Dense(10, activation='relu')(dense_0)
         dense_2 = Dense(1, activation='sigmoid')(dense_1)
         model = Model(inputs=input_vec, outputs=dense_2)
         model.summary()
-        model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
+        # model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
 
-        # model.summary()
-        # embedding_dim = seq_len
-        # conv_0 = Conv2D(num_filters, kernel_size=(filter_sizes[0], embedding_dim), padding='valid', kernel_initializer='normal', activation='relu')
-        # conv_1 = Conv2D(num_filters, kernel_size=(filter_sizes[1], embedding_dim), padding='valid', kernel_initializer='normal', activation='relu')
-        # conv_2 = Conv2D(num_filters, kernel_size=(filter_sizes[2], embedding_dim), padding='valid', kernel_initializer='normal', activation='relu')
-        #
-        # maxpool_0 = MaxPool1D(pool_size=filter_sizes[0] + 1, strides=None, padding='valid')(conv_0)
-        # maxpool_1 = MaxPool1D(pool_size=filter_sizes[1] + 1, strides=None, padding='valid')(conv_1)
-        # maxpool_2 = MaxPool1D(pool_size=filter_sizes[2] + 1, strides=None, padding='valid')(conv_2)
-        #
-        # concatenated_tensor = Concatenate(axis=1)([maxpool_0, maxpool_1, maxpool_2])
-        # flatten = Flatten()(concatenated_tensor)
-        # dropout = Dropout(drop)(flatten)
-        # output = Dense(units=20, activation='softmax')(dropout)
-        #
-        # # this creates a model that includes
-        # model = Model(inputs=inputs, outputs=output)
 
-        # checkpoint = ModelCheckpoint('weights_cnn_sentece.hdf5', monitor='val_acc', verbose=1, save_best_only=True, mode='auto')
-        #adam = Adam(lr=1e-4, beta_1=0.9, beta_2=0.999, epsilon=1e-08, decay=0.0)
 
-        #model.compile(optimizer=adam, loss='binary_crossentropy', metrics=['accuracy'])
-        #model.summary()
+        # compile the model
+        model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['acc',
+                                                     self.f1_m, self.precision_m, self.recall_m])
+        history = model.fit(x_train, y_train, batch_size=batch_size, epochs=epochs, verbose=1)
 
-        model.fit(x_train, y_train, batch_size=batch_size, epochs=epochs, verbose=1, validation_data=(x_val, y_val))
-        #, callbacks=[checkpoint],
+        # 
+        # fit the model
+        # history = model.fit(Xtrain, ytrain, validation_split=0.3, epochs=10, verbose=0)
 
+        # evaluate the model
+        loss, accuracy, f1_score, precision, recall = model.evaluate(x_test, y_test, verbose=0)
 
         self.model = model
+        print(f"The testing values are: \n Loss: {loss}\n Accuracy: {accuracy}\n F1_score: {f1_score}\n "
+              f"Percision: {precision}\n Recall {recall}")
+
+    def recall_m(self, y_true, y_pred):
+        true_positives = keras.backend.sum(keras.backend.round(keras.backend.clip(y_true * y_pred, 0, 1)))
+        possible_positives = keras.backend.sum(keras.backend.round(keras.backend.clip(y_true, 0, 1)))
+        recall = true_positives / (possible_positives + keras.backend.epsilon())
+        return recall
+
+    def precision_m(self, y_true, y_pred):
+        true_positives = keras.backend.sum(keras.backend.round(keras.backend.clip(y_true * y_pred, 0, 1)))
+        predicted_positives = keras.backend.sum(keras.backend.round(keras.backend.clip(y_pred, 0, 1)))
+        precision = true_positives / (predicted_positives + keras.backend.epsilon())
+        return precision
+
+    def f1_m(self, y_true, y_pred):
+        precision = self.precision_m(y_true, y_pred)
+        recall = self.recall_m(y_true, y_pred)
+        return 2 * ((precision * recall) / (precision + recall + keras.backend.epsilon()))
+

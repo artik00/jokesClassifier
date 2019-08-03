@@ -5,7 +5,7 @@ import numpy as np
 
 word2vec_pretrained = 'word2vec/GoogleNews-vectors-negative300.bin.gz'
 SHORT_RUN = True
-NUMBER_OF_SENTENCES = 10000
+NUMBER_OF_SENTENCES = 16000
 
 
 if __name__ == "__main__":
