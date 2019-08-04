@@ -30,7 +30,7 @@ class CNN:
         y_test = labels[-nb_validation_samples:]
 
         batch_size = 10
-        epochs = 800
+        epochs = 1600
         input_vec = Input(shape=(data.shape[1],))
         dense_0 = Dense(20, activation='relu')(input_vec)
         dense_1 = Dense(10, activation='relu')(dense_0)
