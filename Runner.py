@@ -13,8 +13,11 @@ if __name__ == "__main__":
     jokes_file = 'dataset/Jokes16000.txt'
     non_jokes_file = 'dataset/MIX16000.txt'
 
-    eval_pipe = EvaluationPipe('dataset/sentences_for_anchoring.txt', 1, "model/model.sav")
+    eval_pipe = EvaluationPipe('dataset/sentences_for_anchoring.txt', 10, 'model/model.sav',
+                               'dataset/amir_anchors.txt', 'dataset/artyom_anchors.txt')
     eval_pipe.evaluate()
+
+    eval_pipe.print_anchoring_accuracy()
 
     jokes_total_data_instnce = LearningPipe(data_path=jokes_file,
                                             max_number_of_sentences=NUMBER_OF_SENTENCES)
