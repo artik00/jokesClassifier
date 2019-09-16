@@ -1,4 +1,4 @@
-nltk==3.4.3
+nltk>=3.4.5
 gitPython==2.1.12
 gensim==3.8.0
 cmudict==0.4.2
