@@ -6,6 +6,8 @@ from collections import defaultdict
 import numpy as np
 import statistics
 
+MAX_ANCHOR_LEN = 4
+
 class EvaluationPipe(BasePipe):
 
     def __init__(self, path_to_sentence, max_number_of_sentences, path_to_model, path_to_anchors_file_1, path_to_anchor_file_2):
@@ -42,7 +44,7 @@ class EvaluationPipe(BasePipe):
     def evaluate(self):
         self.accuracy_list = list()
         for index, sentence in enumerate(self.data_loader.get_all_sentences_splitted_by_word()):
-            possible_sentences_with_out_words = self.get_all_possible_combinations_with_out_n_words(sentence, 4)
+            possible_sentences_with_out_words = self.get_all_possible_combinations_with_out_n_words(sentence, MAX_ANCHOR_LEN)
             vectors_of_possible_sentences = BasePipe.create_vector(self, possible_sentences_with_out_words)
             evaluation = self.model.predict(vectors_of_possible_sentences,
                                             batch_size=len(possible_sentences_with_out_words), verbose=1)
@@ -54,11 +56,13 @@ class EvaluationPipe(BasePipe):
 
             self.evaluate_anchor(anchor, index)
 
+            print(f"Number of sentence is {index}")
+
     def print_anchoring_accuracy(self):
         for index, list_of_results in self.anchor_results.items():
-            expected_anchors_list = self.sentence_number_to_anchors_dict[str(index + 1)]
-            accuracy = float((list_of_results[1]/len(expected_anchors_list[0])/2)) + \
-                       float((list_of_results[3]/len(expected_anchors_list[1])/2))
+            # actual_anchors_list = self.sentence_number_to_anchors_dict[str(index + 1)]
+            accuracy = float((list_of_results[1]/MAX_ANCHOR_LEN/2)) + \
+                       float((list_of_results[3]/MAX_ANCHOR_LEN/2))
             self.accuracy_list.append(accuracy)
         print(statistics.mean(self.accuracy_list))
 
