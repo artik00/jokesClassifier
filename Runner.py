@@ -7,7 +7,7 @@ from data_loader_from_file import DataLoaderFromFile
 
 SHORT_RUN = True
 NUMBER_OF_SENTENCES = 16000
-NUMBER_OF_SENTENCES_FOR_ANCHORING = 1
+NUMBER_OF_SENTENCES_FOR_ANCHORING = 199
 
 
 
