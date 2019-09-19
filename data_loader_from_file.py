@@ -23,6 +23,7 @@ class DataLoaderFromFile:
     def get_number_of_sentences(self):
         return self._max_number
 
+
     def get_all_sentences(self):
         return self._all_sentences
 
