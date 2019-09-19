@@ -5,6 +5,12 @@ from itertools import combinations
 from collections import defaultdict
 import numpy as np
 import statistics
+import nltk
+
+MAX_ANCHOR_LEN = 4
+POS_FOR_ANCHORING = ["CC", "CD", "DT", "EX", "FW", "IN", "JJ", "JJR", "JJS", "LS", "MD", "NN", "NNS", "NNP",
+                     "NNPS", "PDT", "POS", "PRP", "PRP$", "RB", "RBR", "RBS", "RP", "SYM", "TO", "UH", "VB",
+                     "VBD", "VBG", "VBN", "VBP", "VBZ", "WDT", "WP", "WP$", "WRB"]
 
 class EvaluationPipe(BasePipe):
 
@@ -42,7 +48,8 @@ class EvaluationPipe(BasePipe):
     def evaluate(self):
         self.accuracy_list = list()
         for index, sentence in enumerate(self.data_loader.get_all_sentences_splitted_by_word()):
-            possible_sentences_with_out_words = self.get_all_possible_combinations_with_out_n_words(sentence, 4)
+            sentence = self.remove_redundant_pos(sentence)
+            possible_sentences_with_out_words = self.get_all_possible_combinations_with_out_n_words(sentence, MAX_ANCHOR_LEN)
             vectors_of_possible_sentences = BasePipe.create_vector(self, possible_sentences_with_out_words)
             evaluation = self.model.predict(vectors_of_possible_sentences,
                                             batch_size=len(possible_sentences_with_out_words), verbose=1)
@@ -54,11 +61,13 @@ class EvaluationPipe(BasePipe):
 
             self.evaluate_anchor(anchor, index)
 
+            print(f"Number of sentence is {index}")
+
     def print_anchoring_accuracy(self):
         for index, list_of_results in self.anchor_results.items():
-            expected_anchors_list = self.sentence_number_to_anchors_dict[str(index + 1)]
-            accuracy = float((list_of_results[1]/len(expected_anchors_list[0])/2)) + \
-                       float((list_of_results[3]/len(expected_anchors_list[1])/2))
+            # actual_anchors_list = self.sentence_number_to_anchors_dict[str(index + 1)]
+            accuracy = float((list_of_results[1]/MAX_ANCHOR_LEN/2)) + \
+                       float((list_of_results[3]/MAX_ANCHOR_LEN/2))
             self.accuracy_list.append(accuracy)
         print(statistics.mean(self.accuracy_list))
 
@@ -81,3 +90,7 @@ class EvaluationPipe(BasePipe):
             tpl_to_list.append(" ".join([word for word in tpl]))
         return tpl_to_list
 
+    def remove_redundant_pos(self, sentence):
+        tags = nltk.pos_tag(sentence)
+        filter_by_pos = [t[0] for t in tags if t[1] in POS_FOR_ANCHORING]
+        return filter_by_pos
