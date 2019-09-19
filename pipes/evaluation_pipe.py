@@ -51,6 +51,7 @@ class EvaluationPipe(BasePipe):
             # print(f"Sentence is {sentence}\n")
             sentence = self.remove_redundant_pos(sentence)
             # print(f"sentence after removing irrelevant POS IS {sentence}")
+
             possible_sentences_with_out_words = self.get_all_possible_combinations_with_out_n_words(sentence, MAX_ANCHOR_LEN)
             vectors_of_possible_sentences = BasePipe.create_vector(self, possible_sentences_with_out_words)
             evaluation = self.model.predict(vectors_of_possible_sentences,
