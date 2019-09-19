@@ -21,6 +21,8 @@ class EvaluationPipe(BasePipe):
         self.load_anchors()
         self.data_loader = DataLoaderFromFile(path_to_sentence, max_number_of_sentences=max_number_of_sentences)
         self.model = pickle.load(open(path_to_model, 'rb'))
+        self.anchor_results = defaultdict(list)
+
 
     def load_anchors(self):
         self.sentence_number_to_anchors_dict = defaultdict(list)
@@ -66,29 +68,39 @@ class EvaluationPipe(BasePipe):
 
             print(f"Number of sentence is {index}\n sentence after removing irrelevant POS IS {sentence}")
 
-    def print_anchoring_accuracy(self):
+    def print_anchoring_score(self):
+        counter = 0
+        hits = 0
         for index, list_of_results in self.anchor_results.items():
             # actual_anchors_list = self.sentence_number_to_anchors_dict[str(index + 1)]
-            accuracy = float((list_of_results[1]/MAX_ANCHOR_LEN/2)) + \
-                       float((list_of_results[3]/MAX_ANCHOR_LEN/2))
-            self.accuracy_list.append(accuracy)
-        print(f"anchoring accuracy is {statistics.mean(self.accuracy_list)}")
+            #accuracy = float((list_of_results[1]/(MAX_ANCHOR_LEN-1)/2)) + \
+            #           float((list_of_results[3]/(MAX_ANCHOR_LEN-1)/2))
+            if list_of_results[1] > 0 or list_of_results[3] > 0:
+                hits += 1
+            counter += 1
+
+        #self.accuracy_list.append(accuracy)
+        #print(f"anchoring accuracy is {statistics.mean(self.accuracy_list)}")
+        print(f"anchoring MDE ALO recall is {float(hits/counter)}")
+
 
 
     def evaluate_anchor(self, anchor_from_model, sentence_index):
         expected_anchors_list = self.sentence_number_to_anchors_dict[str(sentence_index+1)]
-        # The fict will be of index_of_Sentence-> [['anchors'], hits, ['anchors'], hits, accuracy]
-        self.anchor_results = defaultdict(list)
+        # The fict will be of index_of_Sentence-> [['anchors'], hits, ['anchors'], hits]
         for expected_anchors in expected_anchors_list:
+            #accuracy, recall, precission, f1 = self.calculate_alo_anchoring(expected_anchors, anchor_from_model)
             words_that_appear_in_actual_and_expected = [x for x in expected_anchors if x in anchor_from_model]
             self.anchor_results[sentence_index].append(words_that_appear_in_actual_and_expected)
             self.anchor_results[sentence_index].append(len(words_that_appear_in_actual_and_expected))
 
 
-
     def get_all_possible_combinations_with_out_n_words(self, sentence, n):
         tpl_to_list = []
-        tpl_list = list(combinations(sentence, len(sentence) - (n-1)))
+        if n - 1 < len(sentence):
+            tpl_list = list(combinations(sentence, len(sentence) - (n-1)))
+        else :
+            tpl_list = list(combinations(sentence, len(sentence) - 1))
         for tpl in tpl_list:
             tpl_to_list.append(" ".join([word for word in tpl]))
         return tpl_to_list

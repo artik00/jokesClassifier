@@ -38,7 +38,7 @@ if __name__ == "__main__":
                                'dataset/amir_anchors.txt', 'dataset/artyom_anchors.txt')
     eval_pipe.evaluate()
 
-    eval_pipe.print_anchoring_accuracy()
+    eval_pipe.print_anchoring_score()
 
     #drafts
 
