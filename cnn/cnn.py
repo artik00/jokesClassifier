@@ -12,11 +12,17 @@ class CNN:
 
     def __init__(self, data: np.ndarray, labels):
         self.model = None
+        self.loss = None
+        self.accuracy = None
+        self.precision = None
+        self.f1_score = None
+        self.recall = None
         indices = np.arange(data.shape[0])
         np.random.shuffle(indices)
         data = data[indices]
         labels = labels[indices]
         nb_validation_samples = int(VALIDATION_SPLIT * data.shape[0])
+
 
         x_train = data[:-nb_validation_samples]
         y_train = labels[:-nb_validation_samples]
@@ -36,17 +42,17 @@ class CNN:
 
 
         # compile the model
-        model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['acc'])
-                                                    # self.f1_m, self.precision_m, self.recall_m])
+        model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['acc', self.f1_m, self.precision_m, self.recall_m])
         history = model.fit(x_train, y_train, batch_size=batch_size, epochs=epochs, verbose=1)
-        acc, metrics = model.evaluate(x_test, y_test, verbose=0)
+        # acc, metrics = model.evaluate(x_test, y_test, verbose=0)
 
-        #loss, accuracy, f1_score, precision, recall = model.evaluate(x_test, y_test, verbose=0)
+        self.loss, self.accuracy, self.f1_score, self.precision, self.recall = model.evaluate(x_test, y_test, verbose=0)
 
         self.model = model
         # print(f"The testing values are: \n Loss: {loss}\n Accuracy: {accuracy}\n F1_score: {f1_score}\n "
         #       f"Percision: {precision}\n Recall {recall}")
         pickle.dump(model, open("model/model.sav", 'wb'))
+
 
     def recall_m(self, y_true, y_pred):
         true_positives = keras.backend.sum(keras.backend.round(keras.backend.clip(y_true * y_pred, 0, 1)))
