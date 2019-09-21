@@ -13,8 +13,8 @@ class CNN:
     def __init__(self, data: np.ndarray, labels, debug=None):
         """
         build the CNN
-        :param data: the vectors the represent the features the represent in the article
-        :param labels: the labels that be used in the cnn model
+        :param data: the vectors that represents the features from the paper
+        :param labels: the labels to be used in the cnn model
         """
         self.model = None
         self.loss = None
@@ -60,7 +60,7 @@ class CNN:
 
     def recall_m(self, y_true, y_pred):
         """
-        function to pass to the model for recall calculation
+        function to calculate the recall of the model
         :param y_true: positive test
         :param y_pred: negative test
         :return: recall value
@@ -72,7 +72,7 @@ class CNN:
 
     def precision_m(self, y_true, y_pred):
         """
-        function to pass to the model for precision calculation
+        function to to calculate the precission of the model
         :param y_true: positive test
         :param y_pred: negative test
         :return: precision value
@@ -84,7 +84,7 @@ class CNN:
 
     def f1_m(self, y_true, y_pred):
         """
-        function to pass to the model for F1 calculation
+        function to calculate the F1 score
         :param y_true: positive test
         :param y_pred: negative test
         :return: F1§§ value

@@ -33,7 +33,7 @@ class EvaluationPipe(BasePipe):
 
     def load_anchors(self):
         """
-        this function load the given anchored jokes from the user in order to get evaluation score
+        this function loads the given anchors extracted by the user to get evaluation score
         for the model anchoring , pre chosen anchors will be saved into self.sentence_number_to_anchors_dict
         :return:
         """
@@ -61,7 +61,7 @@ class EvaluationPipe(BasePipe):
 
     def evaluate(self):
         """
-        the function will evaluate the anchors in  jokes
+        the function will evaluate the anchors in jokes
         :return:
         """
         for index, sentence in enumerate(self.data_loader.get_all_sentences_splitted_by_word()):
@@ -79,7 +79,7 @@ class EvaluationPipe(BasePipe):
                                             batch_size=len(possible_sentences_with_out_words), verbose=1)
 
             minimum_index = np.argmin(evaluation)
-            sentence_with_missing_words = possible_sentences_with_out_words[minimum_index]
+            sentence_with_missing_words = possible_sentences_with_out_words[int(minimum_index)]
 
             anchor = [item for item in sentence if item not in sentence_with_missing_words]
 
@@ -89,7 +89,7 @@ class EvaluationPipe(BasePipe):
 
     def print_anchoring_score(self):
         """
-        this function will write to the console the AOL recall and precision of the model
+        this function will write to the console the AOL(at-least-one) recall and precision of the model
         :return: None
         """
         total_anchor_hits = 0

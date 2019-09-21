@@ -6,7 +6,7 @@ class CnnEvaluator:
 
     def __init__(self, model_path, path_to_sentences_to_extract_anchor):
         """
-        :param model_path: os path to the save model
+        :param model_path: os path to the saved model
         :param path_to_sentences_to_extract_anchor: the sentences to the "golden" anchors sentences
         """
         self.model = pickle.load(open(model_path, 'rb'))
@@ -14,7 +14,7 @@ class CnnEvaluator:
 
     def evaluate_sentence(self, sentence):
         """
-        function will find anchors on the given sentence using the model
+        function will find anchors of the given sentence using the model
         :param sentence: string
         :return: anchor for joke
         """

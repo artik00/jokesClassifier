@@ -5,7 +5,7 @@ import numpy as np
 class PhoneticStyle:
     """
        counting the number of repetitive prefixes in each words and the number of repeating suffix rhymes
-       :return vector in which for each sentence return the length max of rhymes and prefixes alliteration
+
     """
 
     def __init__(self, sentences):
@@ -16,6 +16,9 @@ class PhoneticStyle:
         self.sentences = sentences
 
     def get_features_vector(self):
+        """
+         :return: vector in which for each sentence the length max of rhymes and prefixes alliteration
+        """
         cmu_in_py_dict = cmudict.dict()
         phonetic_vectors = []
         for sentence in self.sentences:

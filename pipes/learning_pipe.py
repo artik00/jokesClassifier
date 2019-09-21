@@ -15,6 +15,6 @@ class LearningPipe(BasePipe):
 
     def create_vector(self):
         """
-        :return: vector for each sentance that represent the for humor method we present in the paper
+        :return: Vector of the given sentence according to what we present in the paper
         """
         return BasePipe.create_vector(self, self.data_loader.get_all_sentences())
