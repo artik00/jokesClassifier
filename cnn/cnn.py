@@ -28,6 +28,7 @@ class CNN:
         labels = labels[indices]
         nb_validation_samples = int(VALIDATION_SPLIT * data.shape[0])
 
+
         x_train = data[:-nb_validation_samples]
         y_train = labels[:-nb_validation_samples]
         x_test = data[-nb_validation_samples:]
@@ -55,6 +56,7 @@ class CNN:
             print(f"ACC - {acc}\n Metrics - {metrics} \n  History - {history} ")
         self.model = model
         pickle.dump(model, open("model/model.sav", 'wb'))
+
 
     def recall_m(self, y_true, y_pred):
         """
