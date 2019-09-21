@@ -9,7 +9,9 @@ class PhoneticStyle:
     """
 
     def __init__(self, sentences):
-
+        """
+        :param sentences: sentence to vectorize with phonetic feature
+        """
         self.vector = None
         self.sentences = sentences
 
@@ -24,6 +26,7 @@ class PhoneticStyle:
 
         self.vector = np.vstack(phonetic_vectors)
         return self.vector
+
 
 class VectorizeByPhonetic:
 
@@ -82,4 +85,3 @@ class VectorizeByPhonetic:
         self.rhyme_num = len(rhyme_strings)
         # longest repetitive  rhyme
         self.max_rhyme_len = max(rhyme_strings.values()) if self.rhyme_num > 0 else 0
-

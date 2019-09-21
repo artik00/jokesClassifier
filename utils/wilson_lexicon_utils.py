@@ -2,7 +2,6 @@
 WILSON_LEXICON = 'WilsonLexicon/subjclueslen1-HLTEMNLP05.tff'
 
 
-
 def load_wilson_lexicon(lexicon_location=WILSON_LEXICON):
     strong_subjectivity_words_set = set()
     weak_subjectivity_words_set = set()

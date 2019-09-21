@@ -2,6 +2,7 @@ from nltk.corpus import wordnet as wn
 from six import iteritems
 from math import isinf
 
+
 def get_similar_words_from_wordnet(word, pos):
     """
 

@@ -3,6 +3,7 @@ from math import log
 from utils.wordnet_utils import get_similar_words_from_wordnet, get_similarity_from_pathes, get_wn_tag_from_nltk_tag
 import numpy as np
 
+
 class AmbiguityVectorizer:
     """
     This class received a list of list of strings where each sentence is breaken down to words.
@@ -18,18 +19,17 @@ class AmbiguityVectorizer:
         return create_sense_for_each_sentence(self.pos_tagged_documents)
 
 
-
-#We want to get the POS tag for sentence  the expected input is list of list of str
+# We want to get the POS tag for sentence  the expected input is list of list of str
 def get_post_tags_from_nltk(sentences):
     """
-    :param sentences - list of list of strings:
+    :param sentences: list of list of strings:
     :return: POS tagged words from NLTK package
     """
     return pos_tag_sents(sentences)
 
+
 def create_sense_for_each_sentence(pos_tagged_sentences):
     """
-
     :param pos_tagged_sentences: list of list of pairs , pair of (str, str) = (word, tag)
     :return: Stack of 3 scores for each sentence , (log(product of all pathes in sentence),
     minimum path distance, maximum path distance)
@@ -47,13 +47,17 @@ def create_sense_for_each_sentence(pos_tagged_sentences):
 
                 if list_of_similar_words_from_wordnet and len(list_of_similar_words_from_wordnet) > 0:
                     sense_combination_product *= len(list_of_similar_words_from_wordnet)
-                    sense_farmost, sense_closest = get_farmost_and_closest_paths_for_pathes(list_of_similar_words_from_wordnet, pathes_for_words_in_sentence)
+
+                    sense_farmost, sense_closest = get_farmost_and_closest_paths_for_pathes(
+                        list_of_similar_words_from_wordnet, pathes_for_words_in_sentence)
+
                     pathes_for_words_in_sentence.update(list_of_similar_words_from_wordnet)
 
                     min_sense_closest = min(min_sense_closest, sense_closest)
                     max_sense_farmost = max(max_sense_farmost, sense_farmost)
         log_of_sense_combination_product = log(sense_combination_product)
-        feature_vectors.append((log_of_sense_combination_product, max_sense_farmost, 0 if min_sense_closest == 100 else min_sense_closest))
+        feature_vectors.append((log_of_sense_combination_product, max_sense_farmost,
+                                0 if min_sense_closest == 100 else min_sense_closest))
     return np.vstack(feature_vectors)
 
 
@@ -73,10 +77,3 @@ def get_farmost_and_closest_paths_for_pathes(list_of_similar_words_from_wordnet,
                 max_path_similarity = max(max_path_similarity, similarity) if similarity else max_path_similarity
                 min_path_similarity = min(min_path_similarity, similarity) if similarity else min_path_similarity
     return max_path_similarity, min_path_similarity
-
-
-
-
-
-
-
