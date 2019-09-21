@@ -35,6 +35,7 @@ if __name__ == "__main__":
     # print(f"Model Accuracy - {cnn_instance.accuracy}")
     # print(f"Model loss - {cnn_instance.loss}")
 
+
     # enable to get anchor accuracy
     eval_pipe = EvaluationPipe('dataset/sentences_for_anchoring.txt', NUMBER_OF_SENTENCES_FOR_ANCHORING,
                                'model/model.sav', 'dataset/amir_anchors.txt', 'dataset/artyom_anchors.txt')

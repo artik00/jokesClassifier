@@ -132,6 +132,7 @@ class EvaluationPipe(BasePipe):
 
     def get_all_possible_combinations_with_out_n_words(self, sentence, n):
         """
+
         the function will return all the combinations of sentence with out set of n words
         :param sentence: original sentence - list of string
         :param n: how many words to remove from the original sentence
