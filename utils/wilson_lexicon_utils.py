@@ -3,6 +3,11 @@ WILSON_LEXICON = 'WilsonLexicon/subjclueslen1-HLTEMNLP05.tff'
 
 
 def load_wilson_lexicon(lexicon_location=WILSON_LEXICON):
+    """
+    This loads the wilson subjectivity lexicon
+    :param lexicon_location:
+    :return:
+    """
     strong_subjectivity_words_set = set()
     weak_subjectivity_words_set = set()
     negative_polarity_words_set = set()

@@ -14,7 +14,7 @@ def get_similar_words_from_wordnet(word, pos):
 
 def get_similarity_from_pathes(synset1, synset2):
     """
-
+    REturns the similar path for 2 words
     :param synset1:  Path of similar words
     :param synset2: 2nd Path of similar words
     :return: distance between 2 pathes
@@ -34,7 +34,7 @@ def get_similarity_from_pathes(synset1, synset2):
 
 def get_wn_tag_from_nltk_tag(tag_from_nltk):
     """
-
+    Transforms tag from NLTK library to Wilson Lexicon library
     :param tag_from_nltk: POS tag from nltk
     :return: a tag according to wordnet corpus
     """

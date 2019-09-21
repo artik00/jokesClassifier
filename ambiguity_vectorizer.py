@@ -6,10 +6,10 @@ import numpy as np
 
 class AmbiguityVectorizer:
     """
-    This class received a list of list of strings where each sentence is breaken down to words.
+    This class received a list of list of strings where each sentence is broken down to words.
     It goes over all the words in the sentence and extracts similar words from wordnet, wordnet returns a sysnet ,
     meaning a path of similar words. Next step is to go over all the word pairs in words , we do this only for NOUN,
-    VERB, ADJ and ADVERB, we check the pathes similarity and get the maximum similar path and minimum path
+    VERB, ADJ and ADVERB, we check the paths similarity and get the maximum similar path and minimum path
 
     """
     def __init__(self, sentences):
@@ -63,7 +63,7 @@ def create_sense_for_each_sentence(pos_tagged_sentences):
 
 def get_farmost_and_closest_paths_for_pathes(list_of_similar_words_from_wordnet, pathes_for_words_in_sentence):
     """
-
+    Returns the most similar and most farmost path
     :param list_of_similar_words_from_wordnet: sysnet structure from wordnet
     :param pathes_for_words_in_sentence: all other sysnet structures that we already encountered in the sentences before
     :return: (max similarity score , min similarity score) for sentece

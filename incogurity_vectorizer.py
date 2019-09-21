@@ -3,7 +3,10 @@ import numpy
 
 
 class IncogurityVectorizer:
-
+    """
+    This class calculates the similarity between 2 words , we use it to iterate over all the words
+    and extract the similarity the minimum and maximum.
+    """
     def __init__(self, sentences, similarity_func, debug_mode=None):
         self.similarity_func = similarity_func
         self.sentences = sentences
