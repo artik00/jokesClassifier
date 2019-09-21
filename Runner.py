@@ -7,7 +7,7 @@ from data_loader_from_file import DataLoaderFromFile
 
 SHORT_RUN = True
 NUMBER_OF_SENTENCES = 16000
-NUMBER_OF_SENTENCES_FOR_ANCHORING = 199
+NUMBER_OF_SENTENCES_FOR_ANCHORING = 200
 
 
 
@@ -32,9 +32,14 @@ if __name__ == "__main__":
     #
     # cnn_instance = CNN(data=concatenated_data, labels=labels)
     # cnn_model = cnn_instance.model
+    # print(f"Model precision - {cnn_instance.precision}")
+    # print(f"Model recall - {cnn_instance.recall}")
+    # print(f"Model F1 score - {cnn_instance.f1_score}")
+    # print(f"Model Accuracy - {cnn_instance.accuracy}")
+    # print(f"Model loss - {cnn_instance.loss}")
 
     # enable to get anchor accuracy
-    eval_pipe = EvaluationPipe('dataset/sentences_for_anchoring.txt', NUMBER_OF_SENTENCES_FOR_ANCHORING, 'model/model.sav',
+    eval_pipe = EvaluationPipe('dataset/sentences_for_anchoring.txt', NUMBER_OF_SENTENCES_FOR_ANCHORING, 'model/model_first.sav',
                                'dataset/amir_anchors.txt', 'dataset/artyom_anchors.txt')
     eval_pipe.evaluate()
 

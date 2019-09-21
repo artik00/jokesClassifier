@@ -22,6 +22,8 @@ class EvaluationPipe(BasePipe):
         self.data_loader = DataLoaderFromFile(path_to_sentence, max_number_of_sentences=max_number_of_sentences)
         self.model = pickle.load(open(path_to_model, 'rb'))
         self.anchor_results = defaultdict(list)
+        self.our_anchors_counter = 0
+        self.missed_anchors_counter = 0
 
 
     def load_anchors(self):
@@ -69,6 +71,7 @@ class EvaluationPipe(BasePipe):
             print(f"Number of sentence is {index}\n sentence after removing irrelevant POS IS {sentence}")
 
     def print_anchoring_score(self):
+        total_anchor_hits = 0
         counter = 0
         hits = 0
         for index, list_of_results in self.anchor_results.items():
@@ -78,10 +81,13 @@ class EvaluationPipe(BasePipe):
             if list_of_results[1] > 0 or list_of_results[3] > 0:
                 hits += 1
             counter += 1
+            total_anchor_hits += list_of_results[1]
 
         #self.accuracy_list.append(accuracy)
         #print(f"anchoring accuracy is {statistics.mean(self.accuracy_list)}")
         print(f"anchoring MDE ALO recall is {float(hits/counter)}")
+        print(f"anchoring MDE ALO precision is "
+              f"{float(self.our_anchors_counter/(self.missed_anchors_counter + self.our_anchors_counter))}")
 
 
 
@@ -90,7 +96,9 @@ class EvaluationPipe(BasePipe):
         # The fict will be of index_of_Sentence-> [['anchors'], hits, ['anchors'], hits]
         for expected_anchors in expected_anchors_list:
             #accuracy, recall, precission, f1 = self.calculate_alo_anchoring(expected_anchors, anchor_from_model)
+            self.our_anchors_counter += len(expected_anchors)
             words_that_appear_in_actual_and_expected = [x for x in expected_anchors if x in anchor_from_model]
+            self.missed_anchors_counter += len([anchor for anchor in anchor_from_model if anchor not in expected_anchors])
             self.anchor_results[sentence_index].append(words_that_appear_in_actual_and_expected)
             self.anchor_results[sentence_index].append(len(words_that_appear_in_actual_and_expected))
 
