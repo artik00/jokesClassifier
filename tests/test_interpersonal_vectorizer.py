@@ -1,5 +1,7 @@
 from interpersonal_vectorizer import InterpersonalVectorizer
 import numpy as np
+
+
 class TestInterpersonalVectorizer:
 
     def test_create_vector_from_sentence(self):

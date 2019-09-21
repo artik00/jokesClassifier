@@ -14,6 +14,9 @@ class W2vVectorizer:
         self.sentences = sentences
         
     def get_features(self):
+        """
+        :return: list of vectors for the given sentences in the class init function
+        """
         feature_w2v = []
         for sentence in self.sentences:
             sum_vector = np.zeros(self.model.vector_size)
@@ -26,4 +29,3 @@ class W2vVectorizer:
             avg_vector = sum_vector / len(sentence) if sentence else np.zeros(self.model.vector_size)
             feature_w2v.append(avg_vector)
         return np.vstack(feature_w2v)
-

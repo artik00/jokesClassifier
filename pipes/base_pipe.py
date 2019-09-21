@@ -18,6 +18,10 @@ class BasePipe(ABC):
                                                                    binary=True, limit=50000)
 
     def create_vector(self, sentences):
+        """
+        :param sentences: the sentences the the model will be build on
+        :return:
+        """
         sentences_tokenized = break_each_sentence_into_tokens(sentences)
         sentences_w_o_repetition = remove_repetition(sentences)
         executor = ThreadPoolExecutor(5)
