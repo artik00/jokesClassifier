@@ -1,6 +1,6 @@
-dataset/
 wordnet/
 dataset/Jokes16000.txt
+dataset/MIX16000.txt
 .idea/
 word2vec/
 venv/
