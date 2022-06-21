@@ -2,7 +2,7 @@ nltk>=3.4.5
 gitPython==2.1.12
 gensim==3.8.0
 cmudict==0.4.2
-numpy==1.17.0
+numpy==1.22.0
 pytest==5.0.1
 keras==2.2.4
 tensorflow==1.14.0
